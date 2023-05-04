@@ -26,5 +26,22 @@ public class СaesarСipher {
             }
         }
         return result;
+    }public String decodingEncrypt(String decodingTextFoCript) {
+        String result = "";
+        for (int i = 0; i < decodingTextFoCript.length(); i++) {
+            //получение текущего символа в тексте для шифрования
+            char currentSymvol = decodingTextFoCript.charAt(i);
+            // получение индекса символа с алфавита с обратным здвигом в ключ
+            int criptoindex = CryptoAnalyzerAlphabet.ALPHABET.indexOf(currentSymvol) - this.key;
+            // проверка что бы не было выхода за приделы алфавита
+            if (criptoindex <0 ) {
+                // если выход есть смещаемся на начало алфавита
+                result += CryptoAnalyzerAlphabet.ALPHABET.charAt(criptoindex + CryptoAnalyzerAlphabet.ALPHABET.length());
+            } else {
+                //если выхода нет получаем символ со смещением
+                result += CryptoAnalyzerAlphabet.ALPHABET.charAt(criptoindex);
+            }
+        }
+        return result;
     }
 }
