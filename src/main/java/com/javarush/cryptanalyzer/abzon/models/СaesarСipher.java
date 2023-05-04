@@ -5,7 +5,7 @@ import com.javarush.cryptanalyzer.abzon.structure.CryptoAnalyzerAlphabet;
 public class СaesarСipher {
     private int key = 3;
 
-    public СaesarСipher() {
+    public СaesarСipher(int key) {
         this.key = key;
     }
 
