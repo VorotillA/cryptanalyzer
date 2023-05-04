@@ -9,25 +9,22 @@ public class СaesarСipher {
         this.key = key;
     }
 
-    public String encrypt(String text) {
-        String alphabet = CryptoAnalyzerAlphabet.ALPHABET;
-        String textFoCript = text;
+    public String encrypt(String textFoCript) {
         String result = "";
-        int key = this.key;
         for (int i = 0; i < textFoCript.length(); i++) {
             //получение текущего символа в тексте для шифрования
             char currentSymvol = textFoCript.charAt(i);
             // получение индекса символа с алфавита со здвигом в ключ
-            int criptoindex = alphabet.indexOf(currentSymvol) + key;
+            int criptoindex = CryptoAnalyzerAlphabet.ALPHABET.indexOf(currentSymvol) + this.key;
             // проверка что бы не было выхода за приделы алфавита
-            if (criptoindex >= alphabet.length()) {
+            if (criptoindex >= CryptoAnalyzerAlphabet.ALPHABET.length()) {
                 // если выход есть смещаемся на начало алфавита
-                result += alphabet.charAt(criptoindex - alphabet.length());
+                result += CryptoAnalyzerAlphabet.ALPHABET.charAt(criptoindex - CryptoAnalyzerAlphabet.ALPHABET.length());
             } else {
                 //если выхода нет получаем символ со смещением
-                result += alphabet.charAt(criptoindex);
+                result += CryptoAnalyzerAlphabet.ALPHABET.charAt(criptoindex);
             }
         }
-        return "";
+        return result;
     }
 }
