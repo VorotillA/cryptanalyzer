@@ -1,14 +1,17 @@
 package com.javarush.cryptanalyzer.abzon;
 
+import com.javarush.cryptanalyzer.abzon.models.IOText;
 import com.javarush.cryptanalyzer.abzon.models.СaesarСipher;
-import com.javarush.cryptanalyzer.abzon.structure.CryptoAnalyzerAlphabet;
+
+import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) {
-        СaesarСipher chipher = new СaesarСipher(70);
-       String t = chipher.encrypt("тест");
-
-        System.out.println(t);
-        System.out.println(chipher.decodingEncrypt(t));
+    public static void main(String[] args) throws IOException {
+        IOText teht = new IOText();
+        СaesarСipher chipher = new СaesarСipher(2);
+        String textFromFile = teht.readFromFile("C:\\Users\\Администратор\\Desktop\\test");
+        textFromFile = chipher.encrypt(textFromFile);
+        teht.writeToFile(textFromFile);
+        System.out.println("Encypt is over");
     }
 }
