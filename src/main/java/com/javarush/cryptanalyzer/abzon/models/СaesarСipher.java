@@ -9,6 +9,10 @@ public class СaesarСipher {
         this.key = key;
     }
 
+    public СaesarСipher() {
+
+    }
+
     public String encrypt(String textFoCript) {
         String result = "";
         for (int i = 0; i < textFoCript.length(); i++) {
@@ -26,7 +30,9 @@ public class СaesarСipher {
             }
         }
         return result;
-    }public String decodingEncrypt(String decodingTextFoCript) {
+    }
+
+    public String decrypt(String decodingTextFoCript) {
         String result = "";
         for (int i = 0; i < decodingTextFoCript.length(); i++) {
             //получение текущего символа в тексте для шифрования
@@ -34,7 +40,7 @@ public class СaesarСipher {
             // получение индекса символа с алфавита с обратным здвигом в ключ
             int criptoindex = CryptoAnalyzerAlphabet.ALPHABET.indexOf(currentSymvol) - this.key;
             // проверка что бы не было выхода за приделы алфавита
-            if (criptoindex <0 ) {
+            if (criptoindex < 0) {
                 // если выход есть смещаемся на начало алфавита
                 result += CryptoAnalyzerAlphabet.ALPHABET.charAt(criptoindex + CryptoAnalyzerAlphabet.ALPHABET.length());
             } else {
@@ -43,5 +49,8 @@ public class СaesarСipher {
             }
         }
         return result;
+    }
+    public  int getKey(){
+        return this.key;
     }
 }
