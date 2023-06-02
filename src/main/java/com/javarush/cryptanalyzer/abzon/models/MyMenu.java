@@ -1,6 +1,6 @@
 package com.javarush.cryptanalyzer.abzon.models;
+
 import java.io.IOException;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class MyMenu {
@@ -11,6 +11,7 @@ public class MyMenu {
     private final Scanner SCANER;
     private final String ACTION_ENCRYPT = "action_encrypt";
     private final String ACTION_DECRYPT = "action_decrypt";
+    private final String ACTION_BRUTE_FORCE = "Brute force";
     private String selectedInput;
     private String selectedOutput;
     private String selectedAction;
@@ -36,12 +37,19 @@ public class MyMenu {
                     this.inputMenu();
                     this.greetingsMainMenu();
                     action = SCANER.nextInt();
-                }case 3 -> {
+                }
+                case 3 -> {
                     СaesarСipher chip = new СaesarСipher();
                     String text = "Привет мир";
                     System.out.println("Пример текста: " + text);
                     System.out.println("Дэфолтный ключ: " + chip.getKey());
                     System.out.println("Зашифрованый текст: " + chip.encrypt(text));
+                    this.greetingsMainMenu();
+                    action = SCANER.nextInt();
+                }
+                case 4 -> {
+                    this.selectedAction = this.ACTION_BRUTE_FORCE;
+                    this.inputMenu();
                     this.greetingsMainMenu();
                     action = SCANER.nextInt();
                 }
@@ -52,13 +60,16 @@ public class MyMenu {
             }
         }
     }
+
     private void greetingsMainMenu() {
         System.out.println("Привет, выбери действие:");
         System.out.println("1 - зашифровать");
         System.out.println("2 - разшифровать");
         System.out.println("3 - пример шифрования");
+        System.out.println("4 - Брутфорс Цезаря");
         System.out.println("0 - выход");
     }
+
     private void inputMenu() throws IOException {
         this.greetingsInputMenu();
         int action = SCANER.nextInt();
@@ -83,12 +94,14 @@ public class MyMenu {
             }
         }
     }
+
     private void greetingsInputMenu() {
         System.out.println("Выбери источник шифрования:");
         System.out.println("1 - зашифровать из консоли");
         System.out.println("2 - зашифровать из текстового документа");
         System.out.println("0 - назад");
     }
+
     private void outputMenu() throws IOException {
         this.greetingsOutputMenu();
         int action = SCANER.nextInt();
@@ -96,15 +109,25 @@ public class MyMenu {
             switch (action) {
                 case 1 -> {
                     this.selectedOutput = this.OUTPUT_CONSOLE;
-                    this.inputKeyMenu();
-                    this.greetingsOutputMenu();
-                    action = SCANER.nextInt();
+                    if (this.selectedAction.equals(this.ACTION_BRUTE_FORCE)) {
+                        this.action();
+                        this.mainMenu();
+                    } else {
+                        this.inputKeyMenu();
+                        this.greetingsOutputMenu();
+                        action = SCANER.nextInt();
+                    }
                 }
                 case 2 -> {
                     this.selectedOutput = this.OUTPUT_FILE;
-                    this.inputKeyMenu();
-                    this.greetingsOutputMenu();
-                    action = SCANER.nextInt();
+                    if (this.selectedAction.equals(this.ACTION_BRUTE_FORCE)) {
+                        this.action();
+                        this.mainMenu();
+                    } else {
+                        this.inputKeyMenu();
+                        this.greetingsOutputMenu();
+                        action = SCANER.nextInt();
+                    }
                 }
                 default -> {
                     System.out.println("Дибил нет такого пункта в меню");
@@ -113,12 +136,14 @@ public class MyMenu {
             }
         }
     }
+
     private void greetingsOutputMenu() {
         System.out.println("Выбери способ вывода:");
         System.out.println("1 - вывод на консоль");
         System.out.println("2 - вывод текстовый документ");
         System.out.println("0 - назад");
     }
+
     private void inputKeyMenu() throws IOException {
         this.greetingsInputKeyMenu();
         int action = SCANER.nextInt();
@@ -149,26 +174,27 @@ public class MyMenu {
         System.out.println("2 - Нет");
         System.out.println("0 - назад");
     }
+
     private void action() throws IOException {
         IOText ioText = new IOText();
-        СaesarСipher cipher = this.currentKey==0 ? new СaesarСipher() : new СaesarСipher(this.currentKey);
+        СaesarСipher cipher = this.currentKey == 0 ? new СaesarСipher() : new СaesarСipher(this.currentKey);
         String result = "";
         String text = "";
-        if(this.selectedInput.equals(this.INPUT_CONSOLE)){
+        if (this.selectedInput.equals(this.INPUT_CONSOLE)) {
             System.out.println("Введите текс для шифрования:");
             SCANER.nextLine();
             text = SCANER.nextLine();
-        }
-        else{
+        } else {
             System.out.println("Введите путь к файлу без .txt");
             SCANER.nextLine();
             String path = SCANER.nextLine();
             text = ioText.readFromFile(path);
         }
-        if(this.selectedAction.equals(this.ACTION_ENCRYPT)){
+        if (this.selectedAction.equals(this.ACTION_ENCRYPT)) {
             result = cipher.encrypt(text);
-        }
-        else{
+        }else if (this.selectedAction.equals(this.ACTION_BRUTE_FORCE)){
+            result = cipher.bruteForce(text);
+        } else {
             result = cipher.decrypt(text);
         }
         if (this.selectedOutput.equals(this.OUTPUT_CONSOLE)) {
