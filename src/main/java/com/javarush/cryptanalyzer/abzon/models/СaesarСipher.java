@@ -55,9 +55,10 @@ public class СaesarСipher {
     }
     public String bruteForce(String text){
      String result = "";
+        String endl = System.getProperty("line.separator");
      for(int i = 1; i <= CryptoAnalyzerAlphabet.ALPHABET.length();i++){
          this.key= i;
-         result += (this.decrypt(text) + " key " + i + "\n\n");
+         result += (" key " + i+ " " + this.decrypt(text) + endl);
      }
      this.key = 3;
      return result;
