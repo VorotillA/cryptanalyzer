@@ -50,18 +50,20 @@ public class СaesarСipher {
         }
         return result;
     }
-    public  int getKey(){
+
+    public int getKey() {
         return this.key;
     }
-    public String bruteForce(String text){
-     String result = "";
+
+    public String bruteForce(String text) {
+        String result = "";
         String endl = System.getProperty("line.separator");
-     for(int i = 1; i <= CryptoAnalyzerAlphabet.ALPHABET.length();i++){
-         this.key= i;
-         result += (" key " + i+ " " + this.decrypt(text) + endl);
-     }
-     this.key = 3;
-     return result;
+        for (int i = 1; i <= CryptoAnalyzerAlphabet.ALPHABET.length(); i++) {
+            this.key = i;
+            result += (" key " + i + " " + this.decrypt(text) + endl);
+        }
+        this.key = 3;
+        return result;
 
     }
 }

@@ -54,11 +54,14 @@ public class MyMenu {
                     action = SCANER.nextInt();
                 }
                 default -> {
-                    System.out.println("Дибил нет такого пункта в меню");
+                    System.out.println("Нет такого пункта в меню");
+                    System.out.println("Повторите ввод от 0 до 4 !!!");
                     action = SCANER.nextInt();
                 }
             }
         }
+        System.out.println("Спасибо за использоваие программы!!!");
+        System.out.println("До встречи");
     }
 
     private void greetingsMainMenu() {
@@ -88,7 +91,8 @@ public class MyMenu {
                     action = SCANER.nextInt();
                 }
                 default -> {
-                    System.out.println("Дибил нет такого пункта в меню");
+                    System.out.println("Нет такого пункта в меню");
+                    System.out.println("Повторите ввод от 0 до 2 !!!");
                     action = SCANER.nextInt();
                 }
             }
@@ -96,9 +100,9 @@ public class MyMenu {
     }
 
     private void greetingsInputMenu() {
-        System.out.println("Выбери источник шифрования:");
-        System.out.println("1 - зашифровать из консоли");
-        System.out.println("2 - зашифровать из текстового документа");
+        System.out.println("Выбери источник:");
+        System.out.println("1 - из консоли");
+        System.out.println("2 - из текстового документа");
         System.out.println("0 - назад");
     }
 
@@ -130,7 +134,8 @@ public class MyMenu {
                     }
                 }
                 default -> {
-                    System.out.println("Дибил нет такого пункта в меню");
+                    System.out.println("Нет такого пункта в меню");
+                    System.out.println("Повторите ввод от 0 до 2 !!!");
                     action = SCANER.nextInt();
                 }
             }
@@ -161,7 +166,8 @@ public class MyMenu {
                     this.mainMenu();
                 }
                 default -> {
-                    System.out.println("Дибил ты опять тупишь? нет такого пункта в меню!!!");
+                    System.out.println("Нет такого пункта в меню");
+                    System.out.println("Повторите ввод от 0 до 2 !!!");
                     action = SCANER.nextInt();
                 }
             }
@@ -169,7 +175,7 @@ public class MyMenu {
     }
 
     private void greetingsInputKeyMenu() {
-        System.out.println("Вы хотите изменить ключ шифрования?");
+        System.out.println("Вы хотите изменить ключ?");
         System.out.println("1 - Да");
         System.out.println("2 - Нет");
         System.out.println("0 - назад");
@@ -181,7 +187,7 @@ public class MyMenu {
         String result = "";
         String text = "";
         if (this.selectedInput.equals(this.INPUT_CONSOLE)) {
-            System.out.println("Введите текс для шифрования:");
+            System.out.println("Введите текс:");
             SCANER.nextLine();
             text = SCANER.nextLine();
         } else {
@@ -192,7 +198,7 @@ public class MyMenu {
         }
         if (this.selectedAction.equals(this.ACTION_ENCRYPT)) {
             result = cipher.encrypt(text);
-        }else if (this.selectedAction.equals(this.ACTION_BRUTE_FORCE)){
+        } else if (this.selectedAction.equals(this.ACTION_BRUTE_FORCE)) {
             result = cipher.bruteForce(text);
         } else {
             result = cipher.decrypt(text);
@@ -202,6 +208,6 @@ public class MyMenu {
         } else {
             ioText.writeToFile(result);
         }
-        System.out.println("Шифрование завершено)))");
+        System.out.println("ПАМ ПАРА ПАМ ((( ЗАВЕРШЕНО )))");
     }
 }
