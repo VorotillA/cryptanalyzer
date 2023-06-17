@@ -11,10 +11,12 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class IOText {
-    private final String fileName = "\\Output_%s.txt";
+    public final static String fileName = "\\Output_%s";
+    public final static String DEFAULT_PATH_OUTPUT = "./src/main/resources/defaultIO/output";
+    public final static String DEFAULT_PATH_INPUT = "./src/main/resources/defaultIO/input";
 
-    public void writeToFile(String outputString) throws IOException {
-        FileOutputStream fileOutputStream = new FileOutputStream(PathToDesktop.getPath() + this.getFileName());
+    public void writeToFile(String outputString, String pathToFile) throws IOException {
+        FileOutputStream fileOutputStream = new FileOutputStream(pathToFile + ".txt");
         fileOutputStream.write(outputString.getBytes());
         fileOutputStream.close();
     }

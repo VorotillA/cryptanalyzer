@@ -4,6 +4,8 @@
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/javarush/cryptanalyzer/abzon/Main.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/defaultIO/input.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/defaultIO/output.txt" charset="windows-1251" />
     <file url="PROJECT" charset="windows-1251" />
   </component>
 </project>

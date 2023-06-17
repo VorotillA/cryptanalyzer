@@ -1,12 +1,16 @@
 package com.javarush.cryptanalyzer.abzon.models;
 
+import com.javarush.cryptanalyzer.abzon.structure.PathToDesktop;
+
 import java.io.IOException;
 import java.util.Scanner;
 
 public class MyMenu {
     private final String INPUT_FILE = "input_file";
+    private final String INPUT_DEFAULT_FILE = "input_default_file";
     private final String INPUT_CONSOLE = "input_console";
     private final String OUTPUT_FILE = "output_file";
+    private final String OUTPUT_DEFAULT_FILE = "output_default_file";
     private final String OUTPUT_CONSOLE = "output_console";
     private final Scanner SCANER;
     private final String ACTION_ENCRYPT = "action_encrypt";
@@ -90,6 +94,12 @@ public class MyMenu {
                     this.greetingsInputMenu();
                     action = SCANER.nextInt();
                 }
+                case 3 -> {
+                    this.selectedInput = this.INPUT_DEFAULT_FILE;
+                    this.outputMenu();
+                    this.greetingsInputMenu();
+                    action = SCANER.nextInt();
+                }
                 default -> {
                     System.out.println("Нет такого пункта в меню");
                     System.out.println("Повторите ввод от 0 до 2 !!!");
@@ -103,6 +113,7 @@ public class MyMenu {
         System.out.println("Выбери источник:");
         System.out.println("1 - из консоли");
         System.out.println("2 - из текстового документа");
+        System.out.println("3 - из текстового документа по умолчанию");
         System.out.println("0 - назад");
     }
 
@@ -133,6 +144,17 @@ public class MyMenu {
                         action = SCANER.nextInt();
                     }
                 }
+                case 3 -> {
+                    this.selectedOutput = this.OUTPUT_DEFAULT_FILE;
+                    if (this.selectedAction.equals(this.ACTION_BRUTE_FORCE)) {
+                        this.action();
+                        this.mainMenu();
+                    } else {
+                        this.inputKeyMenu();
+                        this.greetingsOutputMenu();
+                        action = SCANER.nextInt();
+                    }
+                }
                 default -> {
                     System.out.println("Нет такого пункта в меню");
                     System.out.println("Повторите ввод от 0 до 2 !!!");
@@ -146,6 +168,7 @@ public class MyMenu {
         System.out.println("Выбери способ вывода:");
         System.out.println("1 - вывод на консоль");
         System.out.println("2 - вывод текстовый документ");
+        System.out.println("3 - вывод текстовый документ по умолчанию");
         System.out.println("0 - назад");
     }
 
@@ -190,6 +213,9 @@ public class MyMenu {
             System.out.println("Введите текс:");
             SCANER.nextLine();
             text = SCANER.nextLine();
+        }else if(this.selectedInput.equals(this.INPUT_DEFAULT_FILE)){
+            SCANER.nextLine();
+            text = ioText.readFromFile(IOText.DEFAULT_PATH_INPUT);
         } else {
             System.out.println("Введите путь к файлу без .txt");
             SCANER.nextLine();
@@ -205,8 +231,10 @@ public class MyMenu {
         }
         if (this.selectedOutput.equals(this.OUTPUT_CONSOLE)) {
             System.out.println(result);
+        }else if(this.selectedOutput.equals(this.OUTPUT_DEFAULT_FILE)){
+            ioText.writeToFile(result,IOText.DEFAULT_PATH_OUTPUT);
         } else {
-            ioText.writeToFile(result);
+            ioText.writeToFile(result, PathToDesktop.getPath() + IOText.fileName);
         }
         System.out.println("ПАМ ПАРА ПАМ ((( ЗАВЕРШЕНО )))");
     }
